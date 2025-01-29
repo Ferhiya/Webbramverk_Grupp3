@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, render_template, redirect, url_for, flash
+from forms import ContactForm
 from models import db, seedData
 from flask_migrate import Migrate, upgrade
 from areas.site.sitePages import siteBluePrint
@@ -7,6 +8,8 @@ from flask_security import roles_accepted, auth_required, logout_user
 
 app = Flask(__name__)
 app.config.from_object('config.ConfigDebug')
+#Secret key för formulär
+app.config['SECRET_KEY'] = 'SDFA11#'
 
 db.app = app
 db.init_app(app)
@@ -17,10 +20,19 @@ migrate = Migrate(app,db)
 app.register_blueprint(siteBluePrint)
 app.register_blueprint(productBluePrint)
 
+#Funktion för formulär i "kontakta oss" sidan
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    form = ContactForm()
+    if form.validate_on_submit():
+        flash('Ditt meddelande har mottagits!', 'success')
+        return redirect(url_for('contact'))
+    return render_template('site/contact.html', form=form)
+
 if __name__  == "__main__":
     with app.app_context():
         upgrade()
         seedData(app)
-        app.run()
+        app.run(debug=True)
 
 
