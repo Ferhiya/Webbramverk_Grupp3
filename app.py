@@ -20,14 +20,6 @@ migrate = Migrate(app,db)
 app.register_blueprint(siteBluePrint)
 app.register_blueprint(productBluePrint)
 
-#Funktion för formulär i "kontakta oss" sidan
-@app.route('/contact', methods=['GET', 'POST'])
-def contact():
-    form = ContactForm()
-    if form.validate_on_submit():
-        flash('Ditt meddelande har mottagits!', 'success')
-        return redirect(url_for('contact'))
-    return render_template('site/contact.html', form=form)
 
 if __name__  == "__main__":
     with app.app_context():

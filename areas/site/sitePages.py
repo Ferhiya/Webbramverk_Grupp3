@@ -3,11 +3,12 @@ from forms import ContactForm
 
 siteBluePrint = Blueprint('site', __name__)
 
+#Funktion för formulär i "kontakta oss" sidan
 @siteBluePrint.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm()
     if form.validate_on_submit():
-        flash('Your message has been sent!', 'success')
+        flash('Ditt meddelande har mottagits!')
         return redirect(url_for('site.contact'))  
     return render_template('site/contact.html', form=form)
 
