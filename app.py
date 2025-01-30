@@ -3,7 +3,8 @@ from models import db, seedData
 from flask_migrate import Migrate, upgrade
 from areas.site.sitePages import siteBluePrint
 from areas.products.productPages import productBluePrint
-from flask_security import roles_accepted, auth_required, logout_user
+from flask_security import Security, SQLAlchemyUserDatastore, roles_accepted, auth_required, logout_user
+#from pkg_resources import User, Role  # Replace with your actual User and Role models
 
 app = Flask(__name__)
 app.config.from_object('config.ConfigDebug')
