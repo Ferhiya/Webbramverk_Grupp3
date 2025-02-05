@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from forms import ContactForm
+from models import db, Contact
 
 siteBluePrint = Blueprint('site', __name__)
 
@@ -8,8 +9,19 @@ siteBluePrint = Blueprint('site', __name__)
 def contact():
     form = ContactForm()
     if form.validate_on_submit():
-        flash('Ditt meddelande har mottagits!')
-        return redirect(url_for('site.contact'))  
+        # Skapa ny kontaktpost
+        new_contact = Contact(
+            name=form.name.data,
+            email=form.email.data,
+            message=form.message.data
+        )
+        
+        # Lägg till och committa till databasen
+        db.session.add(new_contact)
+        db.session.commit()
+        
+        flash('Ditt meddelande har mottagits och sparats!')
+        return redirect(url_for('site.contact'))
     return render_template('site/contact.html', form=form)
 
 @siteBluePrint.route('/terms')
