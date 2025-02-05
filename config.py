@@ -3,6 +3,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+print("🔍 DB_USERNAME:", os.getenv("DB_USERNAME"))
+print("🔍 DB_PASSWORD:", os.getenv("DB_PASSWORD"))
+print("🔍 DB_HOST:", os.getenv("DB_HOST"))
+
 class ConfigDebug:
     # Hämtar miljövariabler och använder standardvärden vid behov
     DB_USERNAME = os.getenv('DB_USERNAME', 'root')  # Standard: root
