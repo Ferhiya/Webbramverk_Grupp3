@@ -5,7 +5,7 @@ from flask_security import Security, SQLAlchemyUserDatastore, auth_required, has
 from flask_security.models import fsqla_v3 as fsqla
 
 db = SQLAlchemy()
-
+print(datetime.now())
 
 fsqla.FsModels.set_db_info(db)
 
