@@ -220,11 +220,16 @@
                         <div class="footer">
                             <h3 class="footer-title">Categories</h3>
                             <ul class="footer-links">
-                                <li><a href="#">Hot deals</a></li>
-                                <li><a href="#">Laptops</a></li>
-                                <li><a href="#">Smartphones</a></li>
-                                <li><a href="#">Cameras</a></li>
-                                <li><a href="#">Accessories</a></li>
+                                <li><a href="{{ url_for('product.category', id=1) }}">Beverages</a></li>
+                                <li><a href="{{ url_for('product.category', id=2) }}">Condiments</a></li>
+                                <li><a href="{{ url_for('product.category', id=3) }}">Confections</a></li>
+                                <li><a href="{{ url_for('product.category', id=4) }}">Dairy Products</a></li>
+                                <li><a href="{{ url_for('product.category', id=5) }}">Grains/Cereals</a></li>
+                                <li><a href="{{ url_for('product.category', id=6) }}">Meat/Poultry</a></li>
+                                <li><a href="{{ url_for('product.category', id=7) }}">Produce</a></li>
+                                <li><a href="{{ url_for('product.category', id=8) }}">Seafood</a></li>
+
+                                
                             </ul>
                         </div>
                     </div>
@@ -294,8 +299,8 @@
     <!-- jQuery Plugins -->
     <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
-    <!-- <script src="{{ url_for('static',filename='js/slick.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js/nouislider.min.js') }}"></script> -->
+    <script src="{{ url_for('static',filename='js/slick.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/nouislider.min.js') }}"></script> 
     <script src="{{ url_for('static',filename='js/jquery.zoom.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/main.js') }}"></script>
     {% block scripts %}{% endblock %}                 

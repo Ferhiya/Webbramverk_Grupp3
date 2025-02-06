@@ -1,11 +1,10 @@
 {% extends "baseTemplate.html" %}
+
 {% block title %}Start{% endblock %}
+
 {% block maincontent %}
-
-
-<!-- row -->
+<!-- row for Categories -->
 <div class="row">
-
     {% for cat in trendingCategories %}
         <div class="col-md-4 col-xs-6">
             <div class="shop">
@@ -13,69 +12,151 @@
                  </div>
                 <div class="shop-body">
                     <h3>{{ cat.CategoryName }}<br>Collection</h3>
-                    <a href="{{ url_for('product.category', id=cat.CategoryID)  }}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ url_for('product.category', id=cat.CategoryID) }}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>
     {% endfor %}
 </div>
 
-
-
-            <!-- row -->
-            <div class="row">
-
-                <!-- section title -->
-                <div class="col-md-12">
-                    <div class="section-title">
-                        <h3 class="title">Hot products</h3>
-                        <div class="section-nav">
-                            <ul class="section-tab-nav tab-nav">
-                                <li class="active"><a data-toggle="tab" href="#tab1">Latest</a></li>
-                                <li><a data-toggle="tab" href="#tab1">Price</a></li>
-                                <li><a data-toggle="tab" href="#tab1">Name</a></li>
-                                <li><a data-toggle="tab" href="#tab1">Asc</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /section title -->
-                <!-- Products tab & slick -->
-
-                <div class="col-md-12">
-                    <div class="gallery">
-                    {% for product in products %}
-
-                    <div class="product-box">
-                        <div class="productcontainer">
-                            <img src="https://picsum.photos/300/300?{{ product.ProductID }}" alt="cookies" class="hero-image"/>
-            
-                            <div class="price">$
-                                <div>{{ product.UnitPrice }}</div></div>
-            
-                            <div class="information">
-            
-                                <div class="name">{{ product.ProductName }}</div>
-            
-                                <div class="store">@Model.Color, @Model.Color</div>
-            
-                                <a href="#" class="button">Purchase Product</a>
-            
-                            </div> <!-- end information -->
-                        </div> <!-- end container -->
-                    </div>
-                    
-                                    <!-- /product -->
-                                    {%  endfor  %}
-                </div>
-
-
-
-                            <!-- /tab -->
-                <!-- Products tab & slick -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="section-title">
+            <h3 class="title">Hot Products</h3>
+            <div class="section-nav">
+                <ul class="section-tab-nav tab-nav">
+                    <li><a href="#" class="sort-link" data-sort="latest">Latest</a></li>
+                    <li><a href="#" class="sort-link" data-sort="price">Price Asc</a></li>
+                    <li><a href="#" class="sort-link" data-sort="price_desc">Price Desc</a></li>
+                    <li><a href="#" class="sort-link" data-sort="name">Name A-Z</a></li>
+                    <li><a href="#" class="sort-link" data-sort="name_desc">Name Z-A</a></li>
+                </ul>
             </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Produkter listas här -->
+<div class="row" id="trending-products">
+    {% for product in products %}
+        <div class="col-md-4 col-sm-6">  <!-- Varje produkt tar upp 1/3 av bredden -->
+            <div class="product-box">
+                <div class="productcontainer">
+                    <img src="https://picsum.photos/300/300?{{ product.ProductID }}" alt="{{ product.ProductName }}" class="hero-image"/>
+                    <div class="price">${{ product.UnitPrice }}</div>
+                    <div class="information">
+                        <div class="name">{{ product.ProductName }}</div>
+                        <a href="/product/{{ product.ProductID }}" class="button">View Product</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<style>
+    .product-box {
+        text-align: center;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .productcontainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-image {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .price {
+        font-weight: bold;
+        margin-top: 10px;
+        color: #ffffff;
+    }
+
+    .information {
+        margin-top: 10px;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    .button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sortLinks = document.querySelectorAll(".sort-link");
     
-
-
+        sortLinks.forEach(link => {
+            link.addEventListener("click", function(event) {
+                event.preventDefault();  // Stoppa standardlänk-klick
+    
+                let sortOption = this.getAttribute("data-sort");
+    
+                fetch(`/get_sorted_products?sort=${sortOption}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        let trendingProductsDiv = document.getElementById("trending-products");
+                        trendingProductsDiv.innerHTML = "";  // Rensa befintliga produkter
+    
+                        // Skapa ny layout med 3 produkter per rad
+                        let rowDiv = document.createElement("div");
+                        rowDiv.className = "row";
+    
+                        data.forEach((product, index) => {
+                            let productHTML = `
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="product-box">
+                                        <div class="productcontainer">
+                                            <img src="https://picsum.photos/300/300?${product.ProductID}" alt="${product.ProductName}" class="hero-image"/>
+                                            <div class="price">$${product.UnitPrice}</div>
+                                            <div class="information">
+                                                <div class="name">${product.ProductName}</div>
+                                                <a href="/product/${product.ProductID}" class="button">View Product</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+    
+                            rowDiv.innerHTML += productHTML;
+    
+                            // Om vi når 3 produkter, skapa en ny rad
+                            if ((index + 1) % 3 === 0) {
+                                trendingProductsDiv.appendChild(rowDiv);
+                                rowDiv = document.createElement("div");
+                                rowDiv.className = "row";
+                            }
+                        });
+    
+                        // Lägg till sista raden om den har produkter
+                        if (rowDiv.innerHTML.trim() !== "") {
+                            trendingProductsDiv.appendChild(rowDiv);
+                        }
+                    })
+                    .catch(error => console.error("Error fetching sorted products:", error));
+            });
+        });
+    });
+    </script>
+    
 {% endblock %}
-
