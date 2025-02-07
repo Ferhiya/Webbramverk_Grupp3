@@ -5,7 +5,7 @@ from flask_security import Security, SQLAlchemyUserDatastore, auth_required, has
 from flask_security.models import fsqla_v3 as fsqla
 
 db = SQLAlchemy()
-
+print(datetime.now())
 
 fsqla.FsModels.set_db_info(db)
 
@@ -46,7 +46,16 @@ class NewsletterSubscriber(db.Model):
     def __repr__(self):
         return f'<NewsletterSubscriber {self.Email}>'
 
+class Contact(db.Model):
+    __tablename__ = 'contacts'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    def __repr__(self):
+        return f'<Contact {self.name}>'
 
 
 def seedData(app):

@@ -2,10 +2,22 @@
 {% block title %}Start{% endblock %}
 {% block maincontent %}
 
+<h2>Contact Us</h2>
+    <form method="POST">
+    {{ form.hidden_tag() }}
+    <p>{{ form.name.label }} {{ form.name() }}</p>
+    <p>{{ form.email.label }} {{ form.email() }}</p>
+    <p>{{ form.message.label }} {{ form.message() }}</p>
+    <p>{{ form.submit() }}</p>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
-
-<h1>Kontakta oss</h1>
-<p>Helst inte</p>
 
 
 {% endblock %}

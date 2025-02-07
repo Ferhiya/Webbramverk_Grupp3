@@ -3,12 +3,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+print("🔍 DB_USERNAME:", os.getenv("DB_USERNAME"))
+print("🔍 DB_PASSWORD:", os.getenv("DB_PASSWORD"))
+print("🔍 DB_HOST:", os.getenv("DB_HOST"))
+
 class ConfigDebug:
     # Hämtar miljövariabler och använder standardvärden vid behov
     DB_USERNAME = os.getenv('DB_USERNAME', 'root')  # Standard: root
     DB_PASSWORD = os.getenv('DB_PASSWORD', '')  # Standard: tomt
     DB_HOST = os.getenv('DB_HOST', 'localhost')
-    DB_PORT = int(os.getenv('DB_PORT', '3306'))    # MySQL standardport
+    DB_PORT = os.getenv('DB_PORT', '3306')  # MySQL standardport
     DB_NAME = os.getenv('DB_NAME', 'shop20220128')
 
     # Bygger upp databas-URI:n dynamiskt med infon från .env filen
