@@ -36,6 +36,15 @@ class Product(db.Model):
     UnitsOnOrder = db.Column(db.Integer, unique=False, nullable=False)
     ReorderLevel = db.Column(db.Integer, unique=False, nullable=False)
     Discontinued = db.Column(db.Boolean, unique=False, nullable=False)
+class NewsletterSubscriber(db.Model):
+    __tablename__ = 'NewsletterSubscribers'
+    SubscriberID = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    DateSubscribed = db.Column(db.DateTime, default=datetime.utcnow)
+    IsActive = db.Column(db.Boolean, default=True)
+    
+    def __repr__(self):
+        return f'<NewsletterSubscriber {self.Email}>'
 
 class Contact(db.Model):
     __tablename__ = 'contacts'
