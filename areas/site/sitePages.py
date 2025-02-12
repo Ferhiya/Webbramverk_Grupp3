@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from forms import ContactForm
 from models import db, Contact
+from flask_security import Security, SQLAlchemyUserDatastore, roles_accepted, auth_required, logout_user, login_user, login_required
 
 siteBluePrint = Blueprint('site', __name__)
 
@@ -29,5 +30,6 @@ def terms() -> str:
      return render_template('site/terms.html')
 
 @siteBluePrint.route('/about')
+@login_required
 def about() -> str:
      return render_template('site/about.html')

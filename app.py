@@ -4,17 +4,22 @@ from forms import ContactForm
 from models import db, seedData
 from areas.site.sitePages import siteBluePrint
 from areas.products.productPages import productBluePrint
-from flask_security import roles_accepted, auth_required, logout_user
+from areas.subcribers.sub import subcribersBluePrint
+from flask_security import Security, SQLAlchemyUserDatastore, roles_accepted, auth_required, logout_user, login_user, login_required
 from flask import request, redirect, url_for, flash
-from models import db, NewsletterSubscriber
+from models import db, NewsletterSubscriber,user_datastore,User, Role
 import re
-
+import os
+from dotenv import  load_dotenv
+load_dotenv()
 
 
 app = Flask(__name__)
 app.config.from_object('config.ConfigDebug')
-#Secret key för formulär
-app.config['SECRET_KEY'] = 'SDFA11#'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/shop20220128'
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+app.config['SECURITY_PASSWORD_SALT'] = os.getenv("SECURITY_PASSWORD_SALT")
+
 
 db.app = app
 db.init_app(app)
@@ -22,32 +27,19 @@ migrate = Migrate(app,db)
 # user_manager.app = app
 # user_manager.init_app(app,db,User)
 
+# Flask-Security Setup (User Authentication)
+security = Security(app, user_datastore, register_blueprint=False)
+
 app.register_blueprint(siteBluePrint)
 app.register_blueprint(productBluePrint)
+app.register_blueprint(subcribersBluePrint)
+
+@app.route("/")
+@login_required
+def startpage():
+    return render_template("products/index.html")
 
 
-@app.route('/newsletter', methods=['POST'])
-def newsletter_signup():
-    email = request.form.get('email')
-
-    # Regex for validating an email
-    email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-
-    if email and re.match(email_regex, email):  # Kolla att e-posten matchar regex-mönstret
-        # Kolla om mejlen redan finns i databasen
-        existing_subscriber = NewsletterSubscriber.query.filter_by(email=email).first()
-        if existing_subscriber:
-            flash('This email is already subscribed to the newsletter.')
-        else:
-            # Spara den nya e-postadressen
-            new_subscriber = NewsletterSubscriber(email=email)
-            db.session.add(new_subscriber)
-            db.session.commit()
-            flash('You have successfully subscribed to the newsletter!')
-    else:
-        flash('Please provide a valid email address.')
-
-    return render_template('products/index.html')
 
 
 if __name__  == "__main__":

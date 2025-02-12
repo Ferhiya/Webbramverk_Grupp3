@@ -3,6 +3,7 @@ import barnum
 from datetime import datetime
 from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password
 from flask_security.models import fsqla_v3 as fsqla
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 db = SQLAlchemy()
 print(datetime.now())
@@ -10,11 +11,24 @@ print(datetime.now())
 fsqla.FsModels.set_db_info(db)
 
 class Role(db.Model, fsqla.FsRoleMixin):
-    pass
+    __tablename__ = 'role'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    description = db.Column(db.String(255))
 
 class User(db.Model, fsqla.FsUserMixin):
-    pass
+    __tablename__ = 'user'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+    active = db.Column(db.Boolean, default=True)
+    confirmed_at = db.Column(db.DateTime)
+    
+    fs_uniquifier = db.Column(db.String(255), unique=True)
 
+    
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
 class Category(db.Model):
@@ -60,7 +74,7 @@ class Contact(db.Model):
 
 def seedData(app):
     app.security = Security(app, user_datastore)
-    app.security.datastore.db.create_all()
+    #app.security.datastore.db.create_all()
     if not app.security.datastore.find_role("Admin"):
         app.security.datastore.create_role(name="Admin")
     if not app.security.datastore.find_role("Staff"):
