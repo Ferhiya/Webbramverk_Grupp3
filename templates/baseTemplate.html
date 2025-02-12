@@ -25,9 +25,9 @@
         <div id="top-header">
             <div class="container">
                 <ul class="header-links pull-left">
-                    <li><a href="#"><i class="fa fa-phone"></i> +46-111-22-33</a></li>
-                    <li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-                    <li><a href="#"><i class="fa fa-map-marker"></i> Testgatan 122</a></li>
+                    <li><a href="tel:+46-111-22-33"><i class="fa fa-phone"></i> +46-111-22-33</a></li>
+                    <li><a href="mailto:email@email.com"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
+                    <li><a href="https://www.google.se/maps/place/Testgatan+9,+272+36+Simrishamn/@55.5408966,14.3204241,10.18z/data=!4m6!3m5!1s0x465444adcc7548ef:0x7e18d5dd7bfd2bed!8m2!3d55.5461145!4d14.3378927!16s%2Fg%2F11vkgvy2wj?entry=ttu&g_ep=EgoyMDI1MDEyOS4xIKXMDSoJLDEwMjExMjM0SAFQAw%3D%3D"><i class="fa fa-map-marker"></i> Testgatan 122</a></li>
                 </ul>
                 <ul class="header-links pull-right">
                     <partial name="_LoginPartial" />
@@ -237,8 +237,8 @@
                             <ul class="footer-links">
                                 <li><a href="{{ url_for('site.about') }}">About Us</a></li>
                                 <li><a href="{{ url_for('site.contact') }}">Contact Us</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Orders and Returns</a></li>
+                                <li><a href="{{ url_for('site.privacy') }}">Privacy Policy</a></li>
+                                <li><a href="{{ url_for('site.orders') }}">Orders and Returns</a></li>
                                 <li><a href="{{ url_for('site.terms') }}">Terms & Conditions</a></li>
                             </ul>
                         </div>

@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class ConfigDebug:
+    DEBUG=True
     # Hämtar miljövariabler och använder standardvärden vid behov
     DB_USERNAME = os.getenv('DB_USERNAME', 'root')  # Standard: root
     DB_PASSWORD = os.getenv('DB_PASSWORD', '')  # Standard: tomt
@@ -12,8 +13,7 @@ class ConfigDebug:
     DB_NAME = os.getenv('DB_NAME', 'shop20220128')
 
     # Bygger upp databas-URI:n dynamiskt med infon från .env filen
-    #SQLALCHEMY_DATABASE_URI = f'mysql+mysqlconnector://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
-    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:hejsan123@localhost/shop20220128' 
+    SQLALCHEMY_DATABASE_URI = f'mysql+mysqlconnector://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
     # Flask hemlig nyckel
     SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key')
