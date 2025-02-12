@@ -185,7 +185,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="newsletter">
-                    {% if not is_subscribed %}
+                    {% if not current_user.is_subscribed %}
                     <p>Sign Up for the <strong>NEWSLETTER</strong></p>
                     <form action="{{ url_for('subcriber.newsletter_signup') }}" method="POST">
                         <input class="input" type="email" name="email" placeholder="Enter Your Email" required>

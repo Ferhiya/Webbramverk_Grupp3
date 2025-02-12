@@ -5,7 +5,7 @@ from models import db, seedData
 from areas.site.sitePages import siteBluePrint
 from areas.products.productPages import productBluePrint
 from areas.subcribers.sub import subcribersBluePrint
-from flask_security import Security, SQLAlchemyUserDatastore, roles_accepted, auth_required, logout_user, login_user, login_required
+from flask_security import Security, SQLAlchemyUserDatastore, roles_accepted, auth_required, logout_user, login_user, login_required,current_user
 from flask import request, redirect, url_for, flash
 from models import db, NewsletterSubscriber,user_datastore,User, Role
 import re
@@ -34,15 +34,19 @@ app.register_blueprint(siteBluePrint)
 app.register_blueprint(productBluePrint)
 app.register_blueprint(subcribersBluePrint)
 
-@app.route("/")
-@login_required
-def startpage():
-    return render_template("products/index.html")
+@app.before_request
+def load_user_subscription_status():
+    if current_user.is_authenticated:
+        # Check if the user is in the NewsletterSubscriber table
+        is_subscribed = NewsletterSubscriber.query.filter_by(email=current_user.email).first() is not None
+    else:
+        is_subscribed = False
 
-
-
+    # Make it available in templates
+    setattr(current_user, "is_subscribed", is_subscribed)
 
 if __name__  == "__main__":
+    
     with app.app_context():
         upgrade()
         seedData(app)
