@@ -185,12 +185,16 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="newsletter">
-
+                    {% if not is_subscribed %}
                     <p>Sign Up for the <strong>NEWSLETTER</strong></p>
                     <form action="{{ url_for('subcriber.newsletter_signup') }}" method="POST">
                         <input class="input" type="email" name="email" placeholder="Enter Your Email" required>
                         <button class="newsletter-btn" type="submit"><i class="fa fa-envelope"></i> Subscribe</button>
                     </form>
+                {% else %}
+                    <p><strong>You're already subscribed to our newsletter!</strong></p>
+                {% endif %}
+                
                     <ul class="newsletter-follow">
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
