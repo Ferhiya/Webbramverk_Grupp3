@@ -13,3 +13,7 @@ def terms() -> str:
 @siteBluePrint.route('/about')
 def about() -> str:
      return render_template('site/about.html')
+
+@siteBluePrint.route('/privacy')
+def about() -> str:
+     return render_template('site/privacy.html')
