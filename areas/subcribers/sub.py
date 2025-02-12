@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from flask_security import current_user, login_required
+from flask_security import login_required
 from forms import ContactForm
 from models import db, Contact, NewsletterSubscriber, User
 import re
@@ -28,9 +28,4 @@ def newsletter_signup():
     else:
         flash('Please provide a valid email address.')
 
-    # Om en användare är inloggad, kontrollera om deras email är prenumererad
-    is_subscribed = False
-    if current_user.is_authenticated:
-        is_subscribed = NewsletterSubscriber.query.filter_by(email=current_user.email).first() is not None
-
-    return render_template('baseTemplate.html', is_subscribed=is_subscribed)
+    return render_template('baseTemplate.html')
