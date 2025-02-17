@@ -29,7 +29,7 @@ class ConfigDebug:
     MAIL_USE_SSL = False
     MAIL_USERNAME = ''
     MAIL_PASSWORD = ''
-    MAIL_DEFAULT_SENDER = '"Stefans Webshop" <noreply@example.com>'
+    MAIL_DEFAULT_SENDER = '"Stefans Webshop" <noreply@example.com>' # Stefans webshop supportmejl eller något
 
     # Flask-User settings
     USER_APP_NAME = os.getenv('USER_APP_NAME', "Flask-User Basic App")

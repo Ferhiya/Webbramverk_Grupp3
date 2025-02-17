@@ -48,6 +48,7 @@ def load_user_subscription_status():
     setattr(current_user, "is_subscribed", is_subscribed)
 
 # Test för att se att mailhog funkar via denna länk: http://127.0.0.1:5000/send_test_email
+# URL för Mailhog: http://localhost:8025/
 @app.route('/send_test_email')
 def send_test_email():
     msg = Message('Hello world', sender='noreply@example.com', recipients=['test@example.com'])

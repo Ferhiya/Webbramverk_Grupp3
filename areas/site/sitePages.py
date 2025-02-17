@@ -24,7 +24,7 @@ def contact():
         db.session.add(new_contact)
         db.session.commit()
         
-        # Skicka bekräftelsemail
+        # Skicka bekräftelsemail till användarens ifyllda mejl adress
         msg = Message(
             subject="Tack för ditt meddelande!",
             sender=current_app.config['MAIL_DEFAULT_SENDER'],
