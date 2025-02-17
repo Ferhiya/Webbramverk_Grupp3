@@ -8,6 +8,7 @@ from areas.subcribers.sub import subcribersBluePrint
 from flask_security import Security, SQLAlchemyUserDatastore, roles_accepted, auth_required, logout_user, login_user, login_required,current_user
 from flask import request, redirect, url_for, flash
 from models import db, NewsletterSubscriber,user_datastore,User, Role
+from flask_mail import Mail, Message
 import re
 import os
 from dotenv import  load_dotenv
@@ -23,6 +24,7 @@ app.config['SECURITY_PASSWORD_SALT'] = os.getenv("SECURITY_PASSWORD_SALT")
 
 db.app = app
 db.init_app(app)
+mail = Mail(app)   
 migrate = Migrate(app,db)
 # user_manager.app = app
 # user_manager.init_app(app,db,User)
@@ -44,6 +46,14 @@ def load_user_subscription_status():
 
     # Make it available in templates
     setattr(current_user, "is_subscribed", is_subscribed)
+
+# Test för att se att mailhog funkar via denna länk: http://127.0.0.1:5000/send_test_email
+@app.route('/send_test_email')
+def send_test_email():
+    msg = Message('Hello world', sender='noreply@example.com', recipients=['test@example.com'])
+    msg.body = "This is a test email!"
+    mail.send(msg)
+    return "Test email sent!"
 
 if __name__  == "__main__":
     

@@ -21,14 +21,15 @@ class ConfigDebug:
     # Flask hemlig nyckel
     SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key')
 
-    # Flask-Mail SMTP server settings
-    MAIL_SERVER = os.getenv('MAIL_SERVER', '127.0.0.1')
-    MAIL_PORT = int(os.getenv('MAIL_PORT', 1025))  # Konvertera till int
-    MAIL_USE_SSL = os.getenv('MAIL_USE_SSL', 'False').lower() in ['true', '1']
-    MAIL_USE_TLS = os.getenv('MAIL_USE_TLS', 'False').lower() in ['true', '1']
-    MAIL_USERNAME = os.getenv('MAIL_USERNAME', 'email@example.com')
-    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', 'password')
-    MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', '"MyApp" <noreply@example.com>')
+
+   # Flask-Mail SMTP server settings
+    MAIL_SERVER = 'localhost'  # MailHog
+    MAIL_PORT = 1025
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = False
+    MAIL_USERNAME = ''
+    MAIL_PASSWORD = ''
+    MAIL_DEFAULT_SENDER = '"Stefans Webshop" <noreply@example.com>'
 
     # Flask-User settings
     USER_APP_NAME = os.getenv('USER_APP_NAME', "Flask-User Basic App")
