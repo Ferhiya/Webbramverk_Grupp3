@@ -7,20 +7,17 @@ import re
 subcribersBluePrint = Blueprint('subcriber', __name__)
 
 # ------------------- NEWSLETTER SIGNUP -------------------
-@subcribersBluePrint.route('/newsletter', methods=['POST'])
+@subcribersBluePrint.route('/newsletter/signup', methods=['POST'])
 def newsletter_signup():
+    print("Newsletter signup route reached!")  # Debugging
     email = request.form.get('email')
 
-    # Regex för validering av e-post
     email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-
-    if email and re.match(email_regex, email):  # Kontrollera att e-posten matchar regex
-        # Kolla om mejlen redan finns i databasen
+    if email and re.match(email_regex, email):
         existing_subscriber = NewsletterSubscriber.query.filter_by(email=email).first()
         if existing_subscriber:
             flash('This email is already subscribed to the newsletter.')
         else:
-            # Spara den nya e-postadressen
             new_subscriber = NewsletterSubscriber(email=email)
             db.session.add(new_subscriber)
             db.session.commit()

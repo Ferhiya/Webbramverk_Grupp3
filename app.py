@@ -5,6 +5,7 @@ from models import db, seedData
 from areas.site.sitePages import siteBluePrint
 from areas.products.productPages import productBluePrint
 from areas.subcribers.sub import subcribersBluePrint
+from areas.subcribers.newsletters import newsletter_blueprint
 from flask_security import Security, SQLAlchemyUserDatastore, roles_accepted, auth_required, logout_user, login_user, login_required,current_user
 from flask import request, redirect, url_for, flash
 from models import db, NewsletterSubscriber,user_datastore,User, Role
@@ -33,6 +34,8 @@ security = Security(app, user_datastore, register_blueprint=False)
 app.register_blueprint(siteBluePrint)
 app.register_blueprint(productBluePrint)
 app.register_blueprint(subcribersBluePrint)
+app.register_blueprint(newsletter_blueprint)
+
 
 @app.before_request
 def load_user_subscription_status():
@@ -44,6 +47,9 @@ def load_user_subscription_status():
 
     # Make it available in templates
     setattr(current_user, "is_subscribed", is_subscribed)
+    
+
+
 
 if __name__  == "__main__":
     

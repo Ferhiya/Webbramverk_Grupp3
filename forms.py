@@ -7,3 +7,11 @@ class ContactForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     message = TextAreaField('Message', validators=[DataRequired()], render_kw={"class": "message-box"})
     submit = SubmitField('Skicka')
+    
+
+
+class NewsletterForm(FlaskForm):
+    title = StringField("Title", validators=[DataRequired()])
+    content = TextAreaField("Content", validators=[DataRequired()])
+    submit = SubmitField("Save")
+

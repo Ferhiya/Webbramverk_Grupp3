@@ -1,0 +1,52 @@
+{% extends "baseTemplate.html" %}
+
+{% block title %}Newsletter{% endblock %}
+
+{% block maincontent %}
+<div class="newsletter-container">
+    
+    <!-- ======= HEADER SECTION ======= -->
+      <!-- ======= HEADER SECTION ======= -->
+      <header class="newsletter-header">
+        <h1>{{ "Edit" if newsletter else "Create" }} Newsletter</h1>
+        <p>{{ "Update your newsletter before sending it to users." if newsletter else "Create a new newsletter." }}</p>
+    </header>
+
+    <!-- ======= MIDDLE SECTION (Image + Form) ======= -->
+      <!-- ======= IMAGE SECTION ======= -->
+    <section class="newsletter-content">
+        <div class="image-section">
+            <img src="{{ url_for('static', filename='img/product02.png') }}" alt="Newsletter Image">
+
+        </div>
+
+        <div class="form-section">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                
+                <label>{{ form.title.label }}</label>
+                {{ form.title(class="form-control") }}
+
+                <label>{{ form.content.label }}</label>
+                {{ form.content(class="form-control", rows=6) }}
+
+                <button type="submit" class="btn-submit">{{ form.submit.label }}</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ======= CONTACT SECTION ======= -->
+    <footer class="newsletter-footer">
+        <p>Need help? Contact us at <a href="mailto:support@example.com">support@example.com</a></p>
+        <div class="social-links">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <a href="{{ url_for('newsletter.newsletters') }}" class="back-link">← Back to list</a>
+</div>
+{% endblock %}
+
+<!-- ======= CSS (You can move this to your stylesheet) ======= -->

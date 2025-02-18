@@ -1,0 +1,102 @@
+{% extends "baseTemplate.html" %}
+
+{% block title %}Newsletters{% endblock %}
+
+{% block maincontent %}
+<div class="newsletter-container">
+    
+    <h1>Newsletters</h1>
+
+    <!-- Create Newsletter Button -->
+    <a href="{{ url_for('newsletter.new_newsletter') }}" class="btn btn-primary create-btn">
+        ➕ Create New Newsletter
+    </a>
+
+    <ul class="newsletter-list">
+        {% for newsletter in newsletters %}
+            <li class="newsletter-item">
+                <div class="newsletter-content">
+                    <h2>{{ newsletter.title }}</h2>
+                    <p class="date">📅 Created: {{ newsletter.created_at.strftime('%Y-%m-%d') }}</p>
+                </div>
+                
+                <!-- Edit Button -->
+                <a href="{{ url_for('newsletter.edit_newsletter', id=newsletter.id) }}" class="btn btn-edit">
+                    ✏️ Edit
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+<!-- ======= CSS Styles (Move this to your stylesheet) ======= -->
+<style>
+    .newsletter-container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    .create-btn {
+        display: inline-block;
+        background-color: #28a745;
+        color: white;
+        padding: 12px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        transition: 0.3s ease-in-out;
+    }
+
+    .create-btn:hover {
+        background-color: #218838;
+    }
+
+    .newsletter-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .newsletter-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background: #f9f9f9;
+    }
+
+    .newsletter-content {
+        text-align: left;
+    }
+
+    .date {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .btn-edit {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: 0.3s ease-in-out;
+    }
+
+    .btn-edit:hover {
+        background-color: #0056b3;
+    }
+</style>
