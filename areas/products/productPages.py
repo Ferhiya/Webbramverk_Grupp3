@@ -101,3 +101,22 @@ def add_product():
             flash(f"Ett fel uppstod: {str(e)}", "danger")
 
     return render_template('products/add_product.html')
+
+productBluePrint.route('/add_category', methods=['GET', 'POST'])
+def add_product():
+    if request.method == 'POST':
+        try:
+            # Hämta data från formuläret
+            namn = request.form.get('category_name')
+            description = request.form.get('category_description')
+
+            # Anropa funktionen för att lägga till produkten
+            addProduct(db, namn, description)
+
+            flash("Category has just been added!", "success")
+            return redirect(url_for('products/add_category'))  # Omdirigera tillbaka till formuläret
+
+        except Exception as e:
+            flash(f"Ett fel uppstod: {str(e)}", "danger")
+
+    return render_template('products/add_category.html')
