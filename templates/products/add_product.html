@@ -1,0 +1,74 @@
+{% extends "baseTemplate.html" %}
+{% block title %}Start{% endblock %}
+{% block maincontent %}
+<h2>Add New Product</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="flash-message {{ category }}">
+                        {% if category == 'success' %}
+                        <p style="color: green;">{{ message }}</p>
+                    {% else %}
+                        <p style="color: red;">{{ message }}</p>
+                    {% endif %}
+                        <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+
+<form action="{{ url_for('product.add_product') }}" method="POST">
+    <label for="namn">Product name:</label>
+    <input type="text" name="namn" required><br>
+
+    <label for="supplierid">Supplier ID:</label>
+    <input type="number" name="supplierid" required><br>
+
+    <label for="categoryid">Category ID:</label>
+    <input type="number" name="categoryid" required><br>
+
+    <label for="quantityperunit">Quantity per Unit:</label>
+    <input type="text" name="quantityperunit" required><br>
+
+    <label for="unitprice">Unit Price:</label>
+    <input type="number" step="0.01" name="unitprice" required><br>
+
+    <label for="unitsinstock">Units in stock:</label>
+    <input type="number" name="unitsinstock" required><br>
+
+    <label for="unitsonorder">Units on order:</label>
+    <input type="number" name="unitsonorder" required><br>
+
+    <label for="reorderlevel">Reorder Level:</label>
+    <input type="number" name="reorderlevel" required><br>
+
+    <label for="discontinued">Discontinued (0 = No, 1 = Yes):</label>
+    <input type="number" name="discontinued" min="0" max="1" required><br>
+
+    <button type="submit">Add Product</button>
+</form>
+
+<script>
+    // Vänta på att sidan ska laddas innan vi lägger till eventlyssnare
+    document.addEventListener('DOMContentLoaded', function () {
+        // Hitta alla knappar med klassen 'close-btn' (stäng-knappar)
+        var closeButtons = document.querySelectorAll('.close-btn');
+
+        // Lägg till en eventlyssnare för varje knapp
+        closeButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                // När en knapp klickas, döljer den överordnade flash-meddelandet
+                var flashMessage = button.parentElement;
+                flashMessage.style.display = 'none';
+            });
+        });
+    });
+</script>
+
+
+{% endblock %}
+

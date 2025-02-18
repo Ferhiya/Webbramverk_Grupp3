@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, url_for, flash, redirect
 from .services import getCategory, getTrendingCategories, getProduct, getTrendingProducts
-from models import Category, Product
+from models import Category, Product, addCat, addProduct, db
 from flask import jsonify
 
 
@@ -76,3 +76,28 @@ def get_sorted_products():
     products_data = [{'ProductID': product.ProductID, 'ProductName': product.ProductName, 'UnitPrice': product.UnitPrice} for product in trendingProducts]
     return jsonify(products_data)
 
+@productBluePrint.route('/add_product', methods=['GET', 'POST'])
+def add_product():
+    if request.method == 'POST':
+        try:
+            # Hämta data från formuläret
+            namn = request.form.get('namn')
+            supplierid = int(request.form.get('supplierid'))
+            categoryid = int(request.form.get('categoryid'))
+            quantityperunit = request.form.get('quantityperunit')
+            unitprice = float(request.form.get('unitprice'))
+            unitsinstock = int(request.form.get('unitsinstock'))
+            unitsonorder = int(request.form.get('unitsonorder'))
+            reorderlevel = int(request.form.get('reorderlevel'))
+            discontinued = int(request.form.get('discontinued'))
+
+            # Anropa funktionen för att lägga till produkten
+            addProduct(db, namn, supplierid, categoryid, quantityperunit, unitprice, unitsinstock, unitsonorder, reorderlevel, discontinued)
+
+            flash("Produkten har lagts till!", "success")
+            return redirect(url_for('add_product'))  # Omdirigera tillbaka till formuläret
+
+        except Exception as e:
+            flash(f"Ett fel uppstod: {str(e)}", "danger")
+
+    return render_template('products/add_product.html')
