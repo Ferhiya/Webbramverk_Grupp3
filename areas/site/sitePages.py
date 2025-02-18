@@ -15,5 +15,10 @@ def about() -> str:
      return render_template('site/about.html')
 
 @siteBluePrint.route('/privacy')
-def about() -> str:
+def privacy() -> str:
      return render_template('site/privacy.html')
+
+@siteBluePrint.route('/orders')
+def orders() -> str:
+     return render_template('site/orders.html')
+

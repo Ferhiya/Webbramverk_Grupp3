@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock %} - Stefans Webshop</title>
+    <title>{% block title %}{% endblock %} - Sebastians Webshop</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}" />
     <link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/slick.css') }}" />
@@ -25,9 +25,9 @@
         <div id="top-header">
             <div class="container">
                 <ul class="header-links pull-left">
-                    <li><a href="tel:+46-111-22-33"><i class="fa fa-phone"></i> +46-111-22-33</a></li>
-                    <li><a href="mailto:email@email.com"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-                    <li><a href="https://www.google.se/maps/place/Testgatan+9,+272+36+Simrishamn/@55.5408966,14.3204241,10.18z/data=!4m6!3m5!1s0x465444adcc7548ef:0x7e18d5dd7bfd2bed!8m2!3d55.5461145!4d14.3378927!16s%2Fg%2F11vkgvy2wj?entry=ttu&g_ep=EgoyMDI1MDEyOS4xIKXMDSoJLDEwMjExMjM0SAFQAw%3D%3D"><i class="fa fa-map-marker"></i> Testgatan 122</a></li>
+                    <li><a href="tel:+021-95-51-84"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
+                    <li><a href="mailto:kundstjanst@sebastian.se"><i class="fa fa-envelope-o"></i> kundstjanst@sebastian.se</a></li>
+                    <li><a href="https://www.google.se/maps/place/Testgatan+9,+272+36+Simrishamn/@55.5408966,14.3204241,10.18z/data=!4m6!3m5!1s0x465444adcc7548ef:0x7e18d5dd7bfd2bed!8m2!3d55.5461145!4d14.3378927!16s%2Fg%2F11vkgvy2wj?entry=ttu&g_ep=EgoyMDI1MDEyOS4xIKXMDSoJLDEwMjExMjM0SAFQAw%3D%3D"><i class="fa fa-map-marker"></i> Testgatan 9</a></li>
                 </ul>
                 <ul class="header-links pull-right">
                     <partial name="_LoginPartial" />
@@ -45,7 +45,7 @@
                     <div class="col-md-3">
                         <div class="header-logo">
                             <a href="#" class="logo">
-                                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="">
+                                <img src="{{ url_for('static', filename='img/Sebastian.gif') }}" alt="">
                             </a>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                     <div class="col-md-6">
                         <div class="header-search">
                             <form>
-                                <input class="input" placeholder="Search here">
+                                <input class="input" type="text" placeholder="Search here">
                                 <button class="search-btn">Search</button>
                             </form>
                         </div>
@@ -141,7 +141,7 @@
             <div id="responsive-nav">
                 <!-- NAV -->
                 <ul class="main-nav nav navbar-nav">
-                    @*@Html.Partial("_TopNav", ViewBag.TopMenuViewModel as StefanShopWeb.ViewModels.TopMenuViewModel)*@
+                    Välkommen till Sebastianshop där du kan köpa allt och inget!
                 </ul>
                 <!-- /NAV -->
             </div>
@@ -207,11 +207,11 @@
                     <div class="col-md-3 col-xs-6">
                         <div class="footer">
                             <h3 class="footer-title">About Us</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                            <p>Sebastian AB är detaljhandelsföretag med verksamhet i Sverige. Det har ungefär hälften av Sveriges dagligvaruhandel enligt leverantörsföreningen för dagligvaror, DLF. I slutet av 2018 hade Sebastian omkring 2 075 egna och handlarägda butiker i Sverige.</p>
                             <ul class="footer-links">
-                                <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-                                <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-                                <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                                <li><a href="https://maps.app.goo.gl/Np9eU69LHQ7QKoHM8"><i class="fa fa-map-marker"></i>Testgatan 9</a></li>
+                                <li><a href="tel:+021-95-51-84"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
+                                <li><a href="mailto:kundstjanst@sebastian.se"><i class="fa fa-envelope-o"></i>kundstjanst@sebastian.se</a></li>
                             </ul>
                         </div>
                     </div>
