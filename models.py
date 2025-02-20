@@ -1,19 +1,34 @@
 from flask_sqlalchemy import SQLAlchemy
 import barnum
 from datetime import datetime
-from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password
+from flask_security import Security, RoleMixin, UserMixin, SQLAlchemyUserDatastore, auth_required, hash_password
 from flask_security.models import fsqla_v3 as fsqla
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+import uuid
 
 db = SQLAlchemy()
-
+print(datetime.now())
 
 fsqla.FsModels.set_db_info(db)
 
 class Role(db.Model, fsqla.FsRoleMixin):
-    pass
+    __tablename__ = 'role'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    description = db.Column(db.String(255))
 
 class User(db.Model, fsqla.FsUserMixin):
-    pass
+    __tablename__ = 'user'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+    active = db.Column(db.Boolean, default=True)
+    confirmed_at = db.Column(db.DateTime)
+    roles = db.relationship('Role', secondary=fsqla.FsModels.roles_users, backref=db.backref('role', lazy='dynamic'))
+    fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False, default=str(uuid.uuid4()))
+
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
@@ -36,8 +51,26 @@ class Product(db.Model):
     UnitsOnOrder = db.Column(db.Integer, unique=False, nullable=False)
     ReorderLevel = db.Column(db.Integer, unique=False, nullable=False)
     Discontinued = db.Column(db.Boolean, unique=False, nullable=False)
+class NewsletterSubscriber(db.Model):
+    __tablename__ = 'NewsletterSubscribers'
+    SubscriberID = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    DateSubscribed = db.Column(db.DateTime, default=datetime.utcnow)
+    IsActive = db.Column(db.Boolean, default=True)
+    
+    def __repr__(self):
+        return f'<NewsletterSubscriber {self.Email}>'
 
+class Contact(db.Model):
+    __tablename__ = 'contacts'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    def __repr__(self):
+        return f'<Contact {self.name}>'
 
 
 def seedData(app):
@@ -49,8 +82,12 @@ def seedData(app):
         app.security.datastore.create_role(name="Staff")
     if not app.security.datastore.find_user(email="admin@systementor.se"):
         app.security.datastore.create_user(email="admin@systementor.se", password=hash_password("password"),roles=["Admin"])
-    if not app.security.datastore.find_user(email="worker1@systementor.se"):
-        app.security.datastore.create_user(email="worker1@systementor.se", password=hash_password("password"),roles=["Staff"])
+    if not app.security.datastore.find_user(email="admin2@systementor.se"):
+        app.security.datastore.create_user(email="admin2@systementor.se", password="password",roles=["Admin"])
+    #if not app.security.datastore.find_user(email="worker1@systementor.se"):
+     #   app.security.datastore.create_user(email="worker1@systementor.se", password=("password"),roles=["Staff"])
+    if not app.security.datastore.find_user(email="worker3@systementor.se"):
+        app.security.datastore.create_user(email="worker3@systementor.se", password="password",roles=["Staff"])
     if not app.security.datastore.find_user(email="worker2@systementor.se"):
         app.security.datastore.create_user(email="worker2@systementor.se", password=hash_password("password"),roles=["Staff"])
     app.security.datastore.db.session.commit()
