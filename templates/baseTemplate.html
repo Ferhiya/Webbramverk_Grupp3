@@ -44,7 +44,7 @@
                     <!-- LOGO -->
                     <div class="col-md-3">
                         <div class="header-logo">
-                            <a href="#" class="logo">
+                            <a href="http://127.0.0.1:5000/" class="logo">
                                 <img src="{{ url_for('static', filename='img/Sebastian.gif') }}" alt="">
                             </a>
                         </div>
@@ -73,6 +73,7 @@
                             </div>
                             <!-- /Wishlist -->
                             <!-- Cart -->
+                             
                             <div class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                     <i class="fa fa-shopping-cart"></i>
@@ -176,16 +177,16 @@
                         </form>
                         <ul class="newsletter-follow">
                             <li>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="https://facebook.com"><i class="fa fa-facebook"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="https://twitter.com"><i class="fa fa-twitter"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="https://instagram.com"><i class="fa fa-instagram"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                                <a href="https://pinterest.com"><i class="fa fa-pinterest"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -220,11 +221,14 @@
                         <div class="footer">
                             <h3 class="footer-title">Categories</h3>
                             <ul class="footer-links">
-                                <li><a href="#">Hot deals</a></li>
-                                <li><a href="#">Laptops</a></li>
-                                <li><a href="#">Smartphones</a></li>
-                                <li><a href="#">Cameras</a></li>
-                                <li><a href="#">Accessories</a></li>
+                                <li><a href="http://127.0.0.1:5000/category/1">Beverages</a></li>
+                                <li><a href="http://127.0.0.1:5000/category/2">Condiments</a></li>
+                                <li><a href="http://127.0.0.1:5000/category/3">Confections</a></li>
+                                <li><a href="http://127.0.0.1:5000/category/4">Dairy Products</a></li>
+                                <li><a href="http://127.0.0.1:5000/category/5">Grains & Cereals</a></li>
+                                <li><a href="http://127.0.0.1:5000/category/6">Meat/Poultry</a></li>
+                                <li><a href="http://127.0.0.1:5000/category/7">Produce</a></li>
+                                <li><a href="http://127.0.0.1:5000/category/8">Seafood</a></li>
                             </ul>
                         </div>
                     </div>
@@ -248,11 +252,11 @@
                         <div class="footer">
                             <h3 class="footer-title">Service</h3>
                             <ul class="footer-links">
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">View Cart</a></li>
-                                <li><a href="#">Wishlist</a></li>
-                                <li><a href="#">Track My Order</a></li>
-                                <li><a href="#">Help</a></li>
+                                <li><a href="{{ url_for('site.account') }}">My Account</a></li>
+                                <li><a href="{{ url_for('site.cart') }}">View Cart</a></li>
+                                <li><a href="{{ url_for('site.wishlist') }}">Wishlist</a></li>
+                                <li><a href="{{ url_for('site.order') }}">Track My Order</a></li>
+                                <li><a href="{{ url_for('site.help') }}">Help</a></li>
                             </ul>
                         </div>
                     </div>
@@ -269,12 +273,12 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <ul class="footer-payments">
-                            <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-                            <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-                            <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-                            <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-                            <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-                            <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                            <li><a href="https://www.visa.se/"><i class="fa fa-cc-visa"></i></a></li>
+                            <li><a href="https://svenskakreditkort.se/"><i class="fa fa-credit-card"></i></a></li>
+                            <li><a href="https://www.paypal.com/se/home"><i class="fa fa-cc-paypal"></i></a></li>
+                            <li><a href="https://www.mastercard.se/"><i class="fa fa-cc-mastercard"></i></a></li>
+                            <li><a href="https://www.discover.com/"><i class="fa fa-cc-discover"></i></a></li>
+                            <li><a href="https://www.americanexpress.com/"><i class="fa fa-cc-amex"></i></a></li>
                         </ul>
                         <span class="copyright">
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->

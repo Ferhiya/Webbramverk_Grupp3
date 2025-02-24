@@ -22,3 +22,24 @@ def privacy() -> str:
 def orders() -> str:
      return render_template('site/orders.html')
 
+@siteBluePrint.route('/account')
+def account() -> str:
+     return render_template('site/account.html')
+
+@siteBluePrint.route('/cart')
+def cart() -> str:
+     return render_template('site/cart.html')
+
+@siteBluePrint.route('/wishlist')
+def wishlist() -> str:
+     return render_template('site/wishlist.html')
+
+@siteBluePrint.route('/order')
+def order() -> str:
+     return render_template('site/order.html')
+
+@siteBluePrint.route('/help')
+def help() -> str:
+     return render_template('site/help.html')
+
+
