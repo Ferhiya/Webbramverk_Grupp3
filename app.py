@@ -49,7 +49,7 @@ def load_user_subscription_status():
 
     # Make it available in templates
     setattr(current_user, "is_subscribed", is_subscribed)
- 
+    
 
 
 
