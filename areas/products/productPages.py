@@ -103,7 +103,7 @@ def add_product():
     return render_template('products/add_product.html')
 
 productBluePrint.route('/add_category', methods=['GET', 'POST'])
-def add_product():
+def add_category():
     if request.method == 'POST':
         try:
             # Hämta data från formuläret

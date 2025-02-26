@@ -1,0 +1,55 @@
+{% extends "baseTemplate.html" %}
+{% block title %}Add New Category{% endblock %}
+{% block maincontent %}
+<h2>Add New Category</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="flash-message {{ category }}">
+                        {% if category == 'success' %}
+                        <p style="color: green;">{{ message }}</p>
+                    {% else %}
+                        <p style="color: red;">{{ message }}</p>
+                    {% endif %}
+                        <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+
+<form action="{{ url_for('product.add_category') }}" method="POST">
+    <label for="category_name">Category name:</label>
+    <input type="text" name="category_name" required><br>
+
+    <label for="category_description">Category description:</label>
+    <input type="text" name="category_description" required><br>
+
+    
+
+    <button type="submit">Add Product</button>
+</form>
+
+<script>
+    // Vänta på att sidan ska laddas innan vi lägger till eventlyssnare
+    document.addEventListener('DOMContentLoaded', function () {
+        // Hitta alla knappar med klassen 'close-btn' (stäng-knappar)
+        var closeButtons = document.querySelectorAll('.close-btn');
+
+        // Lägg till en eventlyssnare för varje knapp
+        closeButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                // När en knapp klickas, döljer den överordnade flash-meddelandet
+                var flashMessage = button.parentElement;
+                flashMessage.style.display = 'none';
+            });
+        });
+    });
+</script>
+
+
+{% endblock %}
+
